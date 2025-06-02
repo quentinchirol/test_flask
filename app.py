@@ -1,8 +1,10 @@
 from flask import Flask, request, render_template, redirect, url_for
+from io import BytesIO
 import pandas as pd
 import nettoyage
 import git
 import os
+import tempfile
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'  # dossier où stocker temporairement les fichiers
@@ -42,14 +44,23 @@ def upload_file():
             principal_BD_Quest = nettoyage.netoyage_principal(df1)
             sous_table_BD_Quest = nettoyage.netoyage_sous_table(df1)
 
-            #principal_Accident = nettoyage.netoyage_principal(df2)
+            principal_BD_Quest = principal_BD_Quest.drop('Quelles sont les activités sportives que vous pratiquez ?', axis=1)
+            principal_BD_Quest = principal_BD_Quest.drop('Quels sont les accidents que vous avez eu ?', axis=1)
+
+            fusion_BD_Quest = pd.merge(principal_BD_Quest, sous_table_BD_Quest, on='VOLONTAIRE N°', how='inner')
+
+            principal_Accident = df2
             sous_table_Accident = nettoyage.netoyage_sous_table(df2)
 
+            principal_Accident = principal_Accident.drop("De quel type d'accident s'agissait-il ?", axis=1)
+            principal_Accident = principal_Accident.drop("Quelle(s) blessure(s) l'accident a-t-il provoqué ?", axis=1)
+        
+            fusion_Accident = pd.merge(principal_Accident, sous_table_Accident, on='VOLONTAIRE N°', how='inner')
+
+
             git.clear_folder()
-            git.push_file_to_github(principal_BD_Quest, "principal_BD_Quest.xlsx")
-            git.push_file_to_github(sous_table_BD_Quest, "sous_table_BD_Quest.xlsx")
-            #git.push_file_to_github(principal_Accident, "principal_Accident.xlsx")
-            git.push_file_to_github(sous_table_Accident, "sous_table_Accident.xlsx")
+            git.push_file_to_github(fusion_BD_Quest, "MAVIE_BD_Quest_clean.xlsx")
+            git.push_file_to_github(fusion_Accident, "MAVIE_BD_Accident_clean.xlsx")
 
             see = principal_BD_Quest
             if len(principal_BD_Quest) > 1000:

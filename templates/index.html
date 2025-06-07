@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Accidents de la vie courante</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}">
+</head>
+
+<body>
+
+        <!-- header-->
+    <header id="header">
+        <div class="logo">
+            <a href="{{ url_for('index') }}" class="{% if request.path == url_for('index') %}active{% endif %}"></a>
+                <img src="{{ url_for('static', filename='images/calyxi.png') }}" alt="Calyxis Logo" style="height: 50px;">
+            </a>
+            </div>
+             <!-- Navigation links inline -->
+             <a href="{{ url_for('index') }}" class="{% if request.path == url_for('index') %}active{% endif %}">Accueil</a>
+             <a href="{{ url_for('upload') }}" class="{% if request.path == url_for('upload') %}active{% endif %}">Importer un nouveau fichier</a>
+             <a href="{{ url_for('ki2') }}" class="{% if request.path == url_for('ki2') %}active{% endif %}">Exploration des corrélations</a>
+             <a href="{{ url_for('tab_bord') }}" class="{% if request.path == url_for('tab_bord') %}active{% endif %}">Tableau de bord</a>
+             <a href="{{ url_for('representativite') }}" class="{% if request.path == url_for('representativite') %}active{% endif %}">Test de représentativité</a>
+    </header>
+
+   
+
+    <!-- Banner -->
+    <section class="banner full">
+        <article>
+            <img src="{{ url_for('static', filename='images/bg.png') }}" alt="" width="1440" height="961">
+            <div class="inner">
+                <header>
+                    <p><a>La datavisualisation engagée pour la sécurité.</a></p>
+                    <h2>Calyx’Insight</h2>
+                </header>
+            </div>
+        </article>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <ul class="icons">
+                <li><img src="{{ url_for('static', filename='images/calyxis.png') }}" alt=""></li>
+                <li> </li>
+                <li><img src="{{ url_for('static', filename='images/mavie.png') }}" alt=""></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- JS Scripts -->
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/skel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+</body>
+</html>
+

@@ -11,8 +11,7 @@
 </head>
 
 <body>
-
-        <!-- header-->
+    <!-- header-->
     <header id="header">
         <div class="logo">
             <a href="{{ url_for('index') }}" class="{% if request.path == url_for('index') %}active{% endif %}"></a>
@@ -61,4 +60,6 @@
     <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
 </body>
 </html>
+
+
 
